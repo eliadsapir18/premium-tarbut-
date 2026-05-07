@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --gold: #d4af37;
+  --gold-light: #ecd596;
+  --gold-dark: #a8862b;
+  --ink: #0a0a0a;
+}
+
+html, body {
+  background: var(--ink);
+  color: #f5f5f5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Accessibility presets toggled via classes on <html> */
+html.a11y-large body { font-size: 112%; }
+html.a11y-xlarge body { font-size: 125%; }
+html.a11y-small body { font-size: 92%; }
+
+html.a11y-contrast body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html.a11y-contrast a,
+html.a11y-contrast button { color: #ffd700 !important; }
+
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  color: #ffd700 !important;
+}
+
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus rings — accessible and on-brand */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a8862b, #d4af37);
+  border-radius: 8px;
+}
+
+@layer components {
+  .container-prem {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .gold-text {
+    background: linear-gradient(135deg, #f5ead0 0%, #d4af37 50%, #a8862b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gold-border {
+    border: 1px solid rgba(212, 175, 55, 0.4);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300;
+  }
+
+  .btn-gold {
+    @apply btn bg-gold-gradient text-ink-900 shadow-gold hover:shadow-gold-lg hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply btn border border-gold-400/40 text-gold-200 hover:border-gold-400 hover:text-gold-100 hover:bg-gold-400/10;
+  }
+
+  .card-prem {
+    @apply rounded-2xl border border-gold-400/15 bg-ink-800/70 backdrop-blur-sm transition-all duration-300 hover:border-gold-400/50 hover:shadow-gold;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-gold-400/30 bg-ink-800/60 px-3 py-1 text-xs text-gold-200;
+  }
+
+  .section-title {
+    @apply font-display text-3xl sm:text-4xl md:text-5xl font-semibold gold-text;
+  }
+
+  .divider-gold {
+    @apply mx-auto h-px w-24 bg-gold-gradient opacity-80;
+  }
+}
+
+/* Subtle shimmer on gold buttons */
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #a8862b 0%,
+    #d4af37 25%,
+    #f5ead0 50%,
+    #d4af37 75%,
+    #a8862b 100%
+  );
+  background-size: 200% 100%;
+}
