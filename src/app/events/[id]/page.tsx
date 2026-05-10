@@ -1,11 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EVENTS, getEventBySlug, getEventById } from "@/data/events";
+import {
+  getAllEvents,
+  getEventById,
+  getEventBySlug,
+  getRelatedEvents,
+} from "@/lib/events";
 import EventCard from "@/components/EventCard";
 
-export function generateStaticParams() {
-  return EVENTS.map((e) => ({ id: e.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const all = await getAllEvents();
+  return all.map((e) => ({ id: e.slug }));
 }
 
 export default async function EventDetailsPage({
@@ -14,12 +22,10 @@ export default async function EventDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const event = getEventBySlug(id) || getEventById(id);
+  const event = (await getEventBySlug(id)) ?? (await getEventById(id));
   if (!event) notFound();
 
-  const related = EVENTS.filter(
-    (e) => e.category === event.category && e.id !== event.id
-  ).slice(0, 3);
+  const related = await getRelatedEvents(event.category, event.id, 3);
 
   return (
     <>

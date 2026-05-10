@@ -1,0 +1,22 @@
+CREATE TABLE "events" (
+	"id" text PRIMARY KEY NOT NULL,
+	"slug" text NOT NULL,
+	"title" text NOT NULL,
+	"artist" text,
+	"category" text NOT NULL,
+	"category_label" text NOT NULL,
+	"date" timestamp with time zone NOT NULL,
+	"date_label" text NOT NULL,
+	"special_label" text,
+	"time_label" text NOT NULL,
+	"venue" text NOT NULL,
+	"city" text NOT NULL,
+	"description" text NOT NULL,
+	"long_description" text NOT NULL,
+	"image" text NOT NULL,
+	"image_position" text,
+	"price_from" integer NOT NULL,
+	"featured" boolean DEFAULT false NOT NULL,
+	"tickets" jsonb NOT NULL,
+	CONSTRAINT "events_slug_unique" UNIQUE("slug")
+);

@@ -377,12 +377,3 @@ export const EVENTS: CultureEvent[] = [
   },
 ];
 
-export const FEATURED_EVENTS = EVENTS.filter((e) => e.featured);
-
-export function getEventBySlug(slug: string) {
-  return EVENTS.find((e) => e.slug === slug);
-}
-
-export function getEventById(id: string) {
-  return EVENTS.find((e) => e.id === id);
-}

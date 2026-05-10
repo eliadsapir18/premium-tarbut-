@@ -4,9 +4,13 @@ import SectionHeading from "@/components/SectionHeading";
 import EventCard from "@/components/EventCard";
 import CategoryCard from "@/components/CategoryCard";
 import TrustSection from "@/components/TrustSection";
-import { CATEGORIES, FEATURED_EVENTS } from "@/data/events";
+import { CATEGORIES } from "@/data/events";
+import { getFeaturedEvents } from "@/lib/events";
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const featuredEvents = await getFeaturedEvents();
   return (
     <>
       <Hero />
@@ -20,7 +24,7 @@ export default function HomePage() {
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURED_EVENTS.map((ev) => (
+          {featuredEvents.map((ev) => (
             <EventCard key={ev.id} event={ev} />
           ))}
         </div>
