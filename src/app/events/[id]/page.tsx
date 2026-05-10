@@ -7,7 +7,9 @@ import {
   getEventBySlug,
   getRelatedEvents,
 } from "@/lib/events";
+import { getCurrentUser } from "@/lib/user-auth";
 import EventCard from "@/components/EventCard";
+import OrderForm from "./OrderForm";
 
 export const revalidate = 60;
 
@@ -25,7 +27,10 @@ export default async function EventDetailsPage({
   const event = (await getEventBySlug(id)) ?? (await getEventById(id));
   if (!event) notFound();
 
-  const related = await getRelatedEvents(event.category, event.id, 3);
+  const [related, currentUser] = await Promise.all([
+    getRelatedEvents(event.category, event.id, 3),
+    getCurrentUser(),
+  ]);
 
   return (
     <>
@@ -146,48 +151,14 @@ export default async function EventDetailsPage({
               בחירת כרטיסים
             </h2>
             <p className="mt-1 text-xs text-gray-400">
-              הכרטיסים יישלחו ישירות לאימייל לאחר התשלום.
+              בחרו סוג כרטיס וכמות. נחזור אליכם לסיום הרכישה.
             </p>
 
-            <ul className="mt-5 space-y-3">
-              {event.tickets.map((t) => (
-                <li
-                  key={t.name}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-gold-400/20 bg-ink-900 p-4 transition-colors hover:border-gold-400/60"
-                >
-                  <div>
-                    <div className="text-sm font-semibold text-gold-100">
-                      {t.name}
-                    </div>
-                    {t.description && (
-                      <div className="mt-0.5 text-xs text-gray-400">
-                        {t.description}
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-end">
-                    <div className="font-display text-lg text-gold-300">
-                      ₪{t.price}
-                    </div>
-                    <div className="text-[11px] text-gray-500">
-                      {t.available ? "זמין" : "אזל"}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <button type="button" className="btn-gold mt-6 w-full">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                />
-                <path d="M11 6v12" stroke="currentColor" strokeWidth="1.6" strokeDasharray="2 2" />
-              </svg>
-              רכישת כרטיסים
-            </button>
+            <OrderForm
+              eventSlug={event.slug}
+              tickets={event.tickets}
+              isLoggedIn={!!currentUser}
+            />
 
             <a
               href={`https://wa.me/972546503587?text=${encodeURIComponent(

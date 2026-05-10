@@ -20,7 +20,7 @@ export default async function AdminEventsPage() {
             סה״כ {events.length} אירועים במערכת
           </p>
         </div>
-        <Link href="/admin/events/new" className="btn-gold">
+        <Link href="/manage-pt/events/new" className="btn-gold">
           + אירוע חדש
         </Link>
       </div>
@@ -91,7 +91,7 @@ export default async function AdminEventsPage() {
                     <td className="p-3">
                       <div className="flex items-center gap-2">
                         <Link
-                          href={`/admin/events/${ev.id}`}
+                          href={`/manage-pt/events/${ev.id}`}
                           className="rounded-lg border border-gold-400/30 px-3 py-1.5 text-xs text-gold-200 hover:border-gold-400 hover:text-gold-100"
                         >
                           עריכה

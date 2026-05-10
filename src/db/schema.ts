@@ -5,8 +5,71 @@ import {
   boolean,
   timestamp,
   jsonb,
+  uuid,
+  index,
 } from "drizzle-orm/pg-core";
 import type { TicketTier, EventCategory } from "@/lib/types";
+
+export const users = pgTable(
+  "users",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    email: text("email").notNull().unique(),
+    name: text("name").notNull(),
+    phone: text("phone").notNull(),
+    passwordHash: text("password_hash").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index("users_email_idx").on(t.email)],
+);
+
+export type UserRow = typeof users.$inferSelect;
+export type UserInsert = typeof users.$inferInsert;
+
+export const sessions = pgTable("sessions", {
+  id: text("id").primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export type SessionRow = typeof sessions.$inferSelect;
+
+export const orderStatuses = ["pending", "confirmed", "cancelled"] as const;
+export type OrderStatus = (typeof orderStatuses)[number];
+
+export const orders = pgTable(
+  "orders",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    eventId: text("event_id").notNull(),
+    eventTitleSnapshot: text("event_title_snapshot").notNull(),
+    ticketTierName: text("ticket_tier_name").notNull(),
+    ticketPriceSnapshot: integer("ticket_price_snapshot").notNull(),
+    quantity: integer("quantity").notNull(),
+    notes: text("notes"),
+    status: text("status").$type<OrderStatus>().notNull().default("pending"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("orders_user_idx").on(t.userId),
+    index("orders_event_idx").on(t.eventId),
+  ],
+);
+
+export type OrderRow = typeof orders.$inferSelect;
+export type OrderInsert = typeof orders.$inferInsert;
 
 export const events = pgTable("events", {
   id: text("id").primaryKey(),

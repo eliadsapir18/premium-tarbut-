@@ -285,7 +285,7 @@ export default function EventForm({ initial, mode, action }: Props) {
               ? "יצירת אירוע"
               : "שמירת שינויים"}
         </button>
-        <Link href="/admin" className="btn-ghost">
+        <Link href="/manage-pt" className="btn-ghost">
           ביטול
         </Link>
       </div>

@@ -10,7 +10,7 @@ export const metadata = {
 async function logoutAction() {
   "use server";
   await clearAdminCookie();
-  redirect("/admin/login");
+  redirect("/manage-pt/login");
 }
 
 export default async function AdminAuthedLayout({
@@ -19,27 +19,41 @@ export default async function AdminAuthedLayout({
   children: React.ReactNode;
 }) {
   const authed = await isAdminAuthed();
-  if (!authed) redirect("/admin/login");
+  if (!authed) redirect("/manage-pt/login");
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
       <header className="border-b border-gold-400/15 bg-ink-950/60 backdrop-blur">
         <div className="container-prem flex flex-wrap items-center justify-between gap-3 py-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4 sm:gap-6">
             <Link
-              href="/admin"
+              href="/manage-pt"
               className="font-display text-lg font-semibold gold-text"
             >
               פאנל אדמין
             </Link>
-            <span className="hidden text-xs text-gray-500 sm:inline">
-              ניהול אירועים
-            </span>
+            <nav className="flex items-center gap-3 text-sm sm:gap-4">
+              <Link href="/manage-pt" className="text-gold-200 hover:text-gold-100">
+                אירועים
+              </Link>
+              <Link
+                href="/manage-pt/orders"
+                className="text-gold-200 hover:text-gold-100"
+              >
+                הזמנות
+              </Link>
+              <Link
+                href="/manage-pt/users"
+                className="text-gold-200 hover:text-gold-100"
+              >
+                משתמשים
+              </Link>
+            </nav>
           </div>
           <div className="flex items-center gap-3 text-sm">
             <Link
               href="/"
-              className="text-gold-300 hover:text-gold-100"
+              className="hidden text-gold-300 hover:text-gold-100 sm:inline"
               target="_blank"
             >
               צפה באתר ↗

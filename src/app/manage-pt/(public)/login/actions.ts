@@ -10,5 +10,5 @@ export async function loginAction(_prev: unknown, formData: FormData) {
     return { error: "סיסמה שגויה" };
   }
   await setAdminCookie();
-  redirect("/admin");
+  redirect("/manage-pt");
 }

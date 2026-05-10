@@ -10,7 +10,7 @@ export default function NewEventPage() {
           אירוע חדש
         </h1>
         <Link
-          href="/admin"
+          href="/manage-pt"
           className="text-sm text-gold-300 hover:text-gold-100"
         >
           ← חזרה לרשימה

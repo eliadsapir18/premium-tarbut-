@@ -14,9 +14,15 @@ const NAV_LINKS = [
   { href: "/contact", label: "צור קשר" },
 ];
 
-export default function Header() {
+interface Props {
+  userName?: string;
+}
+
+export default function Header({ userName }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isLoggedIn = !!userName;
+  const firstName = userName ? userName.split(" ")[0] : "";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -61,16 +67,16 @@ export default function Header() {
         {/* Right cluster */}
         <div className="flex items-center gap-3">
           <Link
-            href="/login"
+            href={isLoggedIn ? "/account" : "/login"}
             className="hidden items-center gap-2 rounded-full border border-gold-400/40 px-4 py-2 text-sm font-medium text-gold-200 transition-all hover:border-gold-400 hover:bg-gold-400/10 hover:text-gold-100 md:inline-flex"
           >
             <UserIcon />
-            <span>כניסה לאיזור האישי</span>
+            <span>{isLoggedIn ? `שלום, ${firstName}` : "כניסה לאיזור האישי"}</span>
           </Link>
 
           <Link
-            href="/login"
-            aria-label="כניסה לאיזור האישי"
+            href={isLoggedIn ? "/account" : "/login"}
+            aria-label={isLoggedIn ? "אזור אישי" : "כניסה לאיזור האישי"}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold-400/40 text-gold-200 transition-all hover:border-gold-400 hover:bg-gold-400/10 md:hidden"
           >
             <UserIcon />
@@ -107,12 +113,12 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="/login"
+            href={isLoggedIn ? "/account" : "/login"}
             onClick={() => setMobileOpen(false)}
             className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-4 py-3 text-sm font-semibold text-ink-900"
           >
             <UserIcon />
-            כניסה לאיזור האישי
+            {isLoggedIn ? `אזור אישי — ${firstName}` : "כניסה לאיזור האישי"}
           </Link>
         </nav>
       </div>

@@ -174,7 +174,7 @@ export async function createEventAction(
   revalidatePath("/");
   revalidatePath("/events");
   revalidatePath(`/events/${fields.slug}`);
-  redirect("/admin");
+  redirect("/manage-pt");
 }
 
 export async function updateEventAction(
@@ -217,7 +217,7 @@ export async function updateEventAction(
   revalidatePath("/");
   revalidatePath("/events");
   revalidatePath(`/events/${fields.slug}`);
-  redirect("/admin");
+  redirect("/manage-pt");
 }
 
 export async function deleteEventAction(formData: FormData): Promise<void> {
@@ -232,5 +232,5 @@ export async function deleteEventAction(formData: FormData): Promise<void> {
   revalidatePath("/");
   revalidatePath("/events");
   if (deleted?.slug) revalidatePath(`/events/${deleted.slug}`);
-  redirect("/admin");
+  redirect("/manage-pt");
 }

@@ -22,7 +22,7 @@ export default async function EditEventPage({
           עריכת אירוע
         </h1>
         <Link
-          href="/admin"
+          href="/manage-pt"
           className="text-sm text-gold-300 hover:text-gold-100"
         >
           ← חזרה לרשימה

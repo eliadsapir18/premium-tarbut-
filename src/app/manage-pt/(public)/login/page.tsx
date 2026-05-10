@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function AdminLoginPage() {
   if (await isAdminAuthed()) {
-    redirect("/admin");
+    redirect("/manage-pt");
   }
 
   return (

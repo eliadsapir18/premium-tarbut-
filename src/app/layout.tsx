@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AccessibilityButton from "@/components/AccessibilityButton";
+import { getCurrentUser } from "@/lib/user-auth";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -41,11 +42,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getCurrentUser();
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${cormorant.variable}`}>
       <body className="min-h-screen bg-ink-900 font-sans antialiased selection:bg-gold-400/30 selection:text-gold-100">
@@ -55,7 +57,7 @@ export default function RootLayout({
         >
           דלג לתוכן הראשי
         </a>
-        <Header />
+        <Header userName={user?.name} />
         <main id="main" className="relative">
           {children}
         </main>
