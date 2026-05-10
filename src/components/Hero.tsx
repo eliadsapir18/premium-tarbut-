@@ -78,32 +78,32 @@ export default function Hero() {
         <div className="mt-8 flex flex-col gap-3 sm:flex-row animate-fade-up [animation-delay:400ms]">
           <Link href="/events" className="btn-gold shimmer-gold animate-shimmer">
             <TicketIcon />
-            לצפייה באירועים
+            צפייה באירועים
           </Link>
           <a
-            href="https://wa.me/972546503587"
+            href="https://wa.me/972546503587?text=שלום, אשמח לקבל פרטים"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost"
           >
             <WaIcon />
-            יצירת קשר בוואטסאפ
+            שאלה בוואטסאפ
           </a>
         </div>
 
         {/* Trust strip */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-gold-300/80 sm:text-sm animate-fade-up [animation-delay:500ms]">
           <span className="inline-flex items-center gap-2">
-            <DotGold /> רכישה מאובטחת SSL
+            <DotGold /> תשלום מאובטח SSL
           </span>
           <span className="inline-flex items-center gap-2">
             <DotGold /> שירות לקוחות בעברית
           </span>
           <span className="inline-flex items-center gap-2">
-            <DotGold /> מאות אירועים פעילים
+            <DotGold /> אירועים נבחרים בקפידה
           </span>
           <span className="inline-flex items-center gap-2">
-            <DotGold /> חוויה פרימיום
+            <DotGold /> כרטיס לאימייל מיד
           </span>
         </div>
       </div>

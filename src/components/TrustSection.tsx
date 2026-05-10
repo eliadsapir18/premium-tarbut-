@@ -1,17 +1,50 @@
+import SectionHeading from "./SectionHeading";
+
 const ITEMS = [
   {
-    title: "רכישה מאובטחת",
-    desc: "תשלום מוצפן ב-SSL, סליקה דרך ספקים מורשים — מבלי לאחסן פרטי כרטיס.",
+    title: "תשלום מאובטח",
+    desc: "סליקה מוצפנת SSL דרך ספקים מורשים בלבד — פרטי הכרטיס שלכם לא נשמרים אצלנו.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" strokeWidth="1.6" />
+        <rect
+          x="4"
+          y="10"
+          width="16"
+          height="11"
+          rx="2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M8 10V7a4 4 0 1 1 8 0v3"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
       </svg>
     ),
   },
   {
-    title: "שירות לקוחות זמין",
-    desc: "צוות שירות בעברית, זמינות גבוהה בוואטסאפ ובטלפון — כל ימות השבוע.",
+    title: "כרטיס לאימייל מיד",
+    desc: "מקבלים את הכרטיס הדיגיטלי לאימייל ברגע התשלום — בלי תורים, בלי דאגות.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M11 6v12"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeDasharray="2 2"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "שירות אישי בעברית",
+    desc: "צוות שירות בעברית, זמינות גבוהה בוואטסאפ ובטלפון — תשובה אנושית, לא בוט.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
         <path
@@ -27,8 +60,8 @@ const ITEMS = [
     ),
   },
   {
-    title: "אירועי תרבות נבחרים",
-    desc: "אנו עובדים רק עם מפיקים מובילים — מיטב ההופעות, ההצגות והפסטיבלים.",
+    title: "אירועים נבחרים בקפידה",
+    desc: "אנחנו לא מציפים בכל מה שזז — רק אירועי תרבות נבחרים שעוברים סינון אישי.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
         <path
@@ -40,35 +73,26 @@ const ITEMS = [
       </svg>
     ),
   },
-  {
-    title: "הזמנה פשוטה ומהירה",
-    desc: "ממשק נקי בעברית, רכישה תוך דקה, כרטיס דיגיטלי שמגיע ישר לאימייל.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path
-          d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-        <path d="M11 6v12" stroke="currentColor" strokeWidth="1.6" strokeDasharray="2 2" />
-      </svg>
-    ),
-  },
 ];
 
 export default function TrustSection() {
   return (
-    <section className="container-prem py-20">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="container-prem py-16 sm:py-20">
+      <SectionHeading
+        eyebrow="למה לרכוש דרך פרימיום תרבות?"
+        title="חוויית הזמנה שכיף לחזור אליה"
+        subtitle="תשלום מאובטח, כרטיס לאימייל מיד, ושירות אנושי בעברית — בלי הפתעות."
+      />
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 sm:mt-12 sm:gap-6 lg:grid-cols-4">
         {ITEMS.map((it) => (
           <div
             key={it.title}
-            className="card-prem group flex flex-col items-start gap-3 p-6"
+            className="card-prem group flex flex-col items-start gap-3 p-5 sm:p-6"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-gold-400/30 bg-ink-900 text-gold-300 transition-colors group-hover:text-gold-100">
               {it.icon}
             </div>
-            <h3 className="font-display text-xl font-semibold text-gold-100">
+            <h3 className="font-display text-lg font-semibold text-gold-100 sm:text-xl">
               {it.title}
             </h3>
             <p className="text-sm leading-6 text-gray-300">{it.desc}</p>

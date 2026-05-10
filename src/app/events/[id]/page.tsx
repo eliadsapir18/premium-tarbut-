@@ -91,6 +91,40 @@ export default async function EventDetailsPage({
             </p>
           </div>
 
+          {/* Important event info */}
+          <div className="mt-12">
+            <h2 className="font-display text-2xl font-semibold text-gold-100">
+              מידע חשוב
+            </h2>
+            <div className="divider-gold mt-3 mr-0 ml-auto" style={{ marginLeft: 0 }} />
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              <InfoItem
+                icon="door"
+                title="פתיחת דלתות"
+                body={`כשעה לפני תחילת המופע (${event.timeLabel})`}
+              />
+              <InfoItem
+                icon="age"
+                title="גיל מומלץ"
+                body={
+                  event.category === "kids"
+                    ? "מתאים לכל המשפחה — מגיל 3 ומעלה"
+                    : "מגיל 14 ומעלה (קטינים בליווי מבוגר)"
+                }
+              />
+              <InfoItem
+                icon="access"
+                title="נגישות"
+                body="האולם נגיש לכיסאות גלגלים. לתיאום מראש דברו איתנו בוואטסאפ."
+              />
+              <InfoItem
+                icon="park"
+                title="חניה"
+                body="חניה זמינה במתחם או בקרבת מקום. מומלץ להגיע מוקדם."
+              />
+            </ul>
+          </div>
+
           {related.length > 0 && (
             <div className="mt-14">
               <h2 className="font-display text-2xl font-semibold text-gold-100">
@@ -166,16 +200,34 @@ export default async function EventDetailsPage({
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                 <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.27-1.12a9.86 9.86 0 0 0 5.77 1.83h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.84 9.84 0 0 0 12.04 2Z" />
               </svg>
-              שאלות? דברו איתנו
+              שאלה בוואטסאפ
             </a>
 
-            <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-gray-400">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-              תשלום מאובטח SSL
-            </div>
+            <ul className="mt-5 space-y-2 text-[11px] text-gray-400">
+              <li className="flex items-center gap-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" strokeWidth="1.6" />
+                </svg>
+                תשלום מאובטח SSL — פרטי הכרטיס לא נשמרים
+              </li>
+              <li className="flex items-center gap-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z" stroke="currentColor" strokeWidth="1.6" />
+                </svg>
+                כרטיס דיגיטלי לאימייל מיד לאחר התשלום
+              </li>
+              <li className="flex items-center gap-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+                ביטול אפשרי לפי{" "}
+                <Link href="/cancellation" className="text-gold-300 hover:text-gold-100 underline">
+                  מדיניות הביטולים
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <Link
@@ -229,5 +281,51 @@ function InfoTile({
         {sub && <div className="text-xs text-gray-400">{sub}</div>}
       </div>
     </div>
+  );
+}
+
+function InfoItem({
+  icon,
+  title,
+  body,
+}: {
+  icon: "door" | "age" | "access" | "park";
+  title: string;
+  body: string;
+}) {
+  return (
+    <li className="card-prem flex items-start gap-3 p-4">
+      <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-gold-400/25 bg-ink-900 text-gold-300">
+        {icon === "door" && (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M3 21h16M13 12h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        )}
+        {icon === "age" && (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        )}
+        {icon === "access" && (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <circle cx="12" cy="4.5" r="2" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M9 9l6 0M9 9l1 5h5l1 4M14 14l3 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="11" cy="17" r="4" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        )}
+        {icon === "park" && (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
+      </div>
+      <div>
+        <div className="text-sm font-semibold text-gold-100">{title}</div>
+        <div className="mt-0.5 text-xs leading-5 text-gray-400">{body}</div>
+      </div>
+    </li>
   );
 }

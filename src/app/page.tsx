@@ -89,21 +89,26 @@ export default async function HomePage() {
             />
           </div>
           <div className="relative flex flex-col items-center gap-6">
-            <span className="chip">מצטרפים למועדון פרימיום</span>
+            <span className="chip">מועדון פרימיום</span>
             <h2 className="font-display text-3xl font-semibold gold-text sm:text-5xl">
               חוויית כרטוס יוקרתית — בעברית, בקליק
             </h2>
             <p className="max-w-xl text-base leading-7 text-gray-300">
-              הצטרפו לאלפי לקוחות מרוצים. רכישה מאובטחת, כרטיס לאימייל,
-              ושירות אישי במידת הצורך.
+              תשלום מאובטח, כרטיס לאימייל מיד, ושירות אישי בוואטסאפ — בלי הפתעות
+              בדרך.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link href="/events" className="btn-gold">
-                גלו אירועים
+                צפייה באירועים
               </Link>
-              <Link href="/register" className="btn-ghost">
-                הרשמה למועדון
-              </Link>
+              <a
+                href="https://wa.me/972546503587?text=שלום, אשמח לקבל פרטים"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                שאלה בוואטסאפ
+              </a>
             </div>
           </div>
         </div>

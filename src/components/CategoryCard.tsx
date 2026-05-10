@@ -68,7 +68,7 @@ export default function CategoryCard({ category }: Props) {
         <p className="mt-1 text-sm leading-6 text-gray-300">{category.description}</p>
       </div>
       <div className="mt-2 flex items-center gap-2 text-xs text-gold-300">
-        <span>{category.count} אירועים פעילים</span>
+        <span>צפייה באירועים</span>
         <span className="text-gold-400">←</span>
       </div>
     </Link>
