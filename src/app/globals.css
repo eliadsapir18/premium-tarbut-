@@ -103,6 +103,10 @@ html.a11y-no-motion *::after {
   .divider-gold {
     @apply mx-auto h-px w-24 bg-gold-gradient opacity-80;
   }
+
+  .form-input {
+    @apply w-full rounded-xl border border-gold-400/20 bg-ink-900 px-4 py-2.5 text-sm text-gold-100 placeholder:text-gray-500 focus:border-gold-400 focus:outline-none;
+  }
 }
 
 /* Subtle shimmer on gold buttons */
