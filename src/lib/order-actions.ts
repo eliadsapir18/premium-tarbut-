@@ -6,6 +6,10 @@ import { db } from "@/db";
 import { orders, events } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/user-auth";
+import {
+  sendNewOrderAdminEmail,
+  sendOrderReceivedCustomerEmail,
+} from "@/lib/email";
 import type { TicketTier } from "@/lib/types";
 
 interface ActionState {
@@ -59,6 +63,24 @@ export async function createOrderAction(
     notes,
     status: "pending",
   });
+
+  // Fire-and-forget; email helpers never throw, so an outage can't block the
+  // order. Awaited (not detached) because the redirect below ends the request.
+  const emailData = {
+    customerName: user!.name,
+    customerEmail: user!.email,
+    customerPhone: user!.phone,
+    eventTitle: event.title,
+    eventId: event.id,
+    tierName: tier.name,
+    unitPrice: tier.price,
+    quantity,
+    notes,
+  };
+  await Promise.allSettled([
+    sendNewOrderAdminEmail(emailData),
+    sendOrderReceivedCustomerEmail(emailData),
+  ]);
 
   revalidatePath("/account");
   redirect("/account?ordered=1");
